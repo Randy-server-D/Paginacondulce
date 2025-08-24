@@ -94,10 +94,11 @@
     </audio>
   </div>
 
-  <script>
-    // Inicializa EmailJS (usa tu public key)
-    emailjs.init("dfx0DZd9WoQmuKgn3");
+    <form id="respuestaForm" action="https://formspree.io/f/mqalrrjw" method="POST" style="display:none;">
+    <input type="hidden" name="respuesta_amor" id="respuestaInput">
+  </form>
 
+  <script>
     const inicio = document.getElementById("inicio");
     const app = document.getElementById("app");
     const canvas = document.getElementById("canvas");
@@ -106,26 +107,16 @@
     const music = document.getElementById("music");
     let heartPoints = [];
 
+    // -------- Guardar respuesta en Formspree --------
     function registrarRespuesta(respuesta) {
-      localStorage.setItem("respuesta_amor", respuesta);
+      // Pongo la respuesta en el input oculto
+      document.getElementById("respuestaInput").value = respuesta;
+      // Enviar el formulario oculto automáticamente
+      document.getElementById("respuestaForm").submit();
+
+      // Avanzar a la siguiente pantalla
       inicio.style.display = "none";
       app.style.display = "flex";
-    }
-
-    function enviarMensaje() {
-      const mensaje = document.getElementById("mensaje").value;
-      if (!mensaje.trim()) {
-        alert("Por favor escribe un mensaje ❤️");
-        return;
-      }
-      emailjs.send(" servicio_1h4zp5k " , " plantilla_hy43le3 ", {
-        mensaje: mensaje 
-      }).then(() => {
-        alert("Tu mensaje fue enviado 💌");
-        document.getElementById("mensaje").value = "";
-      }, (err) => {
-        alert("Error al enviar mensaje: " + JSON.stringify(err));
-      });
     }
 
     function drawAnimatedTulip(x, y, delay) {
@@ -280,6 +271,7 @@
   </script>
 </body>
 </html>
+
 
 
 
